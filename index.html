@@ -1,193 +1,582 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-  <title>PostureFix</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>PostureFix — Fix Your Posture Instantly</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
-  <style>
-    body {
-      margin: 0;
-      font-family: 'Segoe UI', sans-serif;
-      background: #0d0d0d;
-      color: white;
-    }
+  :root {
+    --black: #0a0a0a;
+    --white: #fafaf8;
+    --cream: #f5f0e8;
+    --green: #1a6b4a;
+    --green-light: #e8f5ee;
+    --green-mid: #2d9b6b;
+    --accent: #e8522a;
+    --gray: #888;
+    --border: #e2ddd5;
+  }
 
-    header {
-      text-align: center;
-      padding: 15px;
-      font-weight: bold;
-      border-bottom: 1px solid #222;
-    }
+  html { scroll-behavior: smooth; }
 
-    .hero {
-      text-align: center;
-      padding: 50px 20px;
-    }
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--white);
+    color: var(--black);
+    overflow-x: hidden;
+  }
 
-    .hero h1 {
-      font-size: 42px;
-    }
+  /* NAV */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 18px 40px;
+    background: rgba(250,250,248,0.92);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--border);
+  }
+  .nav-logo { font-family: 'Bebas Neue', sans-serif; font-size: 28px; letter-spacing: 2px; color: var(--green); text-decoration: none; }
+  .nav-cta {
+    background: var(--green); color: var(--white);
+    padding: 10px 22px; border-radius: 100px; font-size: 14px; font-weight: 500;
+    text-decoration: none; transition: background 0.2s;
+  }
+  .nav-cta:hover { background: var(--green-mid); }
 
-    .hero p {
-      color: #bbb;
-      font-size: 18px;
-    }
+  /* HERO */
+  .hero {
+    min-height: 100vh;
+    background: var(--black);
+    display: grid; grid-template-columns: 1fr 1fr;
+    align-items: center;
+    padding: 120px 40px 80px;
+    gap: 60px;
+    position: relative;
+    overflow: hidden;
+  }
+  .hero::before {
+    content: '';
+    position: absolute; top: 0; right: 0; width: 60%; height: 100%;
+    background: radial-gradient(ellipse at 70% 50%, rgba(26,107,74,0.25) 0%, transparent 70%);
+    pointer-events: none;
+  }
+  .hero-badge {
+    display: inline-flex; align-items: center; gap: 8px;
+    background: rgba(26,107,74,0.2); border: 1px solid rgba(26,107,74,0.4);
+    color: #5ddba0; padding: 6px 14px; border-radius: 100px;
+    font-size: 12px; font-weight: 500; letter-spacing: 0.05em;
+    text-transform: uppercase; margin-bottom: 28px;
+  }
+  .hero-badge span { width: 6px; height: 6px; border-radius: 50%; background: #5ddba0; animation: pulse 1.5s infinite; }
+  @keyframes pulse { 0%,100%{opacity:1} 50%{opacity:0.3} }
+  .hero h1 {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(56px, 8vw, 100px);
+    line-height: 0.92;
+    color: var(--white);
+    letter-spacing: 1px;
+    margin-bottom: 24px;
+  }
+  .hero h1 em { color: var(--green-mid); font-style: normal; }
+  .hero-sub { font-size: 18px; color: #aaa; line-height: 1.6; margin-bottom: 40px; font-weight: 300; }
+  .hero-price {
+    display: flex; align-items: baseline; gap: 12px; margin-bottom: 32px;
+  }
+  .hero-price .amount { font-family: 'Bebas Neue', sans-serif; font-size: 56px; color: var(--white); }
+  .hero-price .currency { font-size: 22px; color: #aaa; font-weight: 300; }
+  .hero-price .tag {
+    background: var(--accent); color: white;
+    padding: 4px 10px; border-radius: 6px; font-size: 12px; font-weight: 600;
+    text-transform: uppercase; letter-spacing: 0.05em;
+  }
+  .btn-primary {
+    display: inline-block;
+    background: var(--green); color: var(--white);
+    padding: 18px 36px; border-radius: 100px;
+    font-size: 16px; font-weight: 600; text-decoration: none;
+    transition: all 0.2s; border: none; cursor: pointer;
+    letter-spacing: 0.02em;
+  }
+  .btn-primary:hover { background: var(--green-mid); transform: translateY(-2px); }
+  .hero-perks {
+    display: flex; gap: 24px; margin-top: 28px; flex-wrap: wrap;
+  }
+  .hero-perk { color: #666; font-size: 13px; display: flex; align-items: center; gap: 6px; }
+  .hero-perk::before { content: '✓'; color: var(--green-mid); font-weight: 700; }
 
-    img {
-      width: 280px;
-      border-radius: 20px;
-      margin: 20px 0;
-    }
+  /* Hero image side */
+  .hero-visual {
+    display: flex; align-items: center; justify-content: center;
+    position: relative;
+  }
+  .product-frame {
+    width: 380px; height: 460px;
+    background: linear-gradient(145deg, #1c1c1c, #111);
+    border-radius: 24px;
+    border: 1px solid #2a2a2a;
+    display: flex; flex-direction: column; align-items: center; justify-content: center;
+    position: relative; overflow: hidden;
+  }
+  .product-frame::before {
+    content: '';
+    position: absolute; inset: 0;
+    background: radial-gradient(circle at 50% 30%, rgba(26,107,74,0.15) 0%, transparent 60%);
+  }
+  .product-placeholder {
+    width: 200px; height: 260px;
+    display: flex; flex-direction: column; align-items: center; justify-content: center;
+    gap: 12px; position: relative; z-index: 1;
+  }
+  .product-placeholder svg { opacity: 0.3; }
+  .product-placeholder p { color: #555; font-size: 13px; text-align: center; line-height: 1.5; }
+  .product-badge-float {
+    position: absolute; bottom: 30px; left: 50%; transform: translateX(-50%);
+    background: var(--green); color: white;
+    padding: 10px 20px; border-radius: 100px; font-size: 13px; font-weight: 600;
+    white-space: nowrap; z-index: 2;
+  }
 
-    .price {
-      font-size: 32px;
-      color: #00ffae;
-    }
+  /* SECTION BASE */
+  section { padding: 100px 40px; }
+  .container { max-width: 1100px; margin: 0 auto; }
+  .section-label {
+    font-size: 11px; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase;
+    color: var(--green); margin-bottom: 16px;
+  }
+  .section-title {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(40px, 5vw, 64px);
+    line-height: 1; letter-spacing: 0.5px; margin-bottom: 20px;
+  }
 
-    .btn {
-      background: #00ffae;
-      color: black;
-      padding: 15px 30px;
-      border-radius: 12px;
-      font-weight: bold;
-      border: none;
-      cursor: pointer;
-      margin-top: 10px;
-    }
+  /* BENEFITS */
+  .benefits { background: var(--cream); }
+  .benefits-grid {
+    display: grid; grid-template-columns: repeat(3, 1fr);
+    gap: 2px; margin-top: 60px;
+  }
+  .benefit-card {
+    background: var(--white); padding: 40px 32px;
+    border: 1px solid var(--border);
+  }
+  .benefit-card:first-child { border-radius: 16px 0 0 16px; }
+  .benefit-card:last-child { border-radius: 0 16px 16px 0; }
+  .benefit-icon {
+    width: 48px; height: 48px; border-radius: 12px;
+    background: var(--green-light); display: flex; align-items: center; justify-content: center;
+    margin-bottom: 24px;
+  }
+  .benefit-card h3 { font-size: 20px; font-weight: 600; margin-bottom: 10px; }
+  .benefit-card p { font-size: 15px; color: var(--gray); line-height: 1.7; }
 
-    .section {
-      padding: 50px 20px;
-      text-align: center;
-    }
+  /* HOW IT WORKS */
+  .steps { background: var(--white); }
+  .steps-list { display: flex; flex-direction: column; gap: 0; margin-top: 60px; }
+  .step {
+    display: grid; grid-template-columns: 80px 1fr;
+    gap: 32px; align-items: start; padding: 40px 0;
+    border-bottom: 1px solid var(--border);
+    position: relative;
+  }
+  .step:last-child { border-bottom: none; }
+  .step-num {
+    font-family: 'Bebas Neue', sans-serif; font-size: 72px;
+    color: var(--cream); line-height: 1; user-select: none;
+  }
+  .step h3 { font-size: 22px; font-weight: 600; margin-bottom: 8px; }
+  .step p { font-size: 15px; color: var(--gray); line-height: 1.7; }
 
-    .features {
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: center;
-      gap: 20px;
-    }
+  /* REVIEWS */
+  .reviews { background: var(--black); }
+  .reviews .section-title { color: var(--white); }
+  .reviews .section-label { color: #5ddba0; }
+  .reviews-grid {
+    display: grid; grid-template-columns: repeat(3, 1fr);
+    gap: 20px; margin-top: 60px;
+  }
+  .review-card {
+    background: #161616; border: 1px solid #222;
+    border-radius: 16px; padding: 28px;
+  }
+  .stars { color: #f5a623; font-size: 14px; margin-bottom: 16px; letter-spacing: 2px; }
+  .review-text { font-size: 15px; color: #bbb; line-height: 1.7; margin-bottom: 20px; }
+  .reviewer { display: flex; align-items: center; gap: 12px; }
+  .reviewer-avatar {
+    width: 36px; height: 36px; border-radius: 50%;
+    background: var(--green); display: flex; align-items: center; justify-content: center;
+    font-size: 13px; font-weight: 600; color: white;
+  }
+  .reviewer-name { font-size: 14px; font-weight: 500; color: var(--white); }
+  .reviewer-loc { font-size: 12px; color: #555; }
 
-    .box {
-      background: #1a1a1a;
-      padding: 20px;
-      border-radius: 15px;
-      width: 260px;
-    }
+  /* ORDER FORM */
+  .order-section { background: var(--cream); }
+  .order-wrapper {
+    display: grid; grid-template-columns: 1fr 1fr;
+    gap: 60px; align-items: start;
+  }
+  .order-info h2 {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(40px, 4vw, 56px); line-height: 1; margin-bottom: 24px;
+  }
+  .order-info p { font-size: 15px; color: var(--gray); line-height: 1.8; margin-bottom: 32px; }
+  .order-guarantees { display: flex; flex-direction: column; gap: 14px; }
+  .guarantee { display: flex; align-items: center; gap: 12px; font-size: 14px; font-weight: 500; }
+  .guarantee-icon {
+    width: 32px; height: 32px; border-radius: 8px;
+    background: var(--green-light); display: flex; align-items: center; justify-content: center;
+    font-size: 16px; flex-shrink: 0;
+  }
 
-    .review {
-      background: #1a1a1a;
-      padding: 15px;
-      margin: 10px;
-      border-radius: 10px;
-    }
+  /* FORM */
+  .order-form-box {
+    background: var(--white); border-radius: 20px;
+    border: 1px solid var(--border); padding: 40px;
+  }
+  .form-title { font-size: 22px; font-weight: 600; margin-bottom: 6px; }
+  .form-sub { font-size: 14px; color: var(--gray); margin-bottom: 28px; }
+  .form-group { margin-bottom: 18px; }
+  .form-group label { display: block; font-size: 13px; font-weight: 500; margin-bottom: 6px; color: #555; }
+  .form-group input, .form-group select, .form-group textarea {
+    width: 100%; padding: 12px 16px;
+    border: 1.5px solid var(--border); border-radius: 10px;
+    font-family: 'DM Sans', sans-serif; font-size: 15px;
+    color: var(--black); background: var(--white);
+    transition: border-color 0.2s; outline: none;
+  }
+  .form-group input:focus, .form-group select:focus, .form-group textarea:focus {
+    border-color: var(--green);
+  }
+  .form-group textarea { resize: vertical; min-height: 80px; }
+  .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+  .submit-btn {
+    width: 100%; padding: 16px; background: var(--green);
+    color: var(--white); border: none; border-radius: 100px;
+    font-family: 'DM Sans', sans-serif; font-size: 16px; font-weight: 600;
+    cursor: pointer; transition: all 0.2s; letter-spacing: 0.02em;
+  }
+  .submit-btn:hover { background: var(--green-mid); transform: translateY(-1px); }
+  .form-note { text-align: center; font-size: 12px; color: var(--gray); margin-top: 12px; }
 
-    .badge {
-      background: red;
-      padding: 5px 10px;
-      border-radius: 10px;
-      display: inline-block;
-      margin: 10px 0;
-    }
+  /* Success */
+  .success-msg {
+    display: none; text-align: center; padding: 32px 20px;
+  }
+  .success-msg .check {
+    width: 64px; height: 64px; border-radius: 50%;
+    background: var(--green-light); display: flex; align-items: center; justify-content: center;
+    margin: 0 auto 16px; font-size: 28px;
+  }
+  .success-msg h3 { font-size: 22px; font-weight: 600; margin-bottom: 8px; }
+  .success-msg p { font-size: 15px; color: var(--gray); }
 
-    .countdown {
-      color: #ff4d4d;
-      margin-top: 10px;
-    }
+  /* FOOTER */
+  footer {
+    background: var(--black); color: #555;
+    padding: 40px; text-align: center; font-size: 14px;
+  }
+  footer a { color: var(--green-mid); text-decoration: none; }
+  .footer-logo { font-family: 'Bebas Neue', sans-serif; font-size: 32px; color: #333; margin-bottom: 12px; letter-spacing: 2px; }
 
-    .popup {
-      position: fixed;
-      bottom: 20px;
-      left: 20px;
-      background: #1a1a1a;
-      padding: 10px;
-      border-radius: 10px;
-      display: none;
-    }
+  /* Sticky bottom bar */
+  .sticky-bar {
+    position: fixed; bottom: 0; left: 0; right: 0; z-index: 99;
+    background: var(--black); border-top: 1px solid #1a1a1a;
+    padding: 14px 40px;
+    display: flex; align-items: center; justify-content: space-between;
+    transform: translateY(100%); transition: transform 0.3s;
+  }
+  .sticky-bar.visible { transform: translateY(0); }
+  .sticky-bar p { color: #aaa; font-size: 14px; }
+  .sticky-bar p strong { color: white; }
 
-    footer {
-      text-align: center;
-      padding: 20px;
-      color: #777;
-    }
-
-  </style>
+  /* RESPONSIVE */
+  @media (max-width: 768px) {
+    nav { padding: 16px 20px; }
+    .hero { grid-template-columns: 1fr; padding: 100px 20px 60px; gap: 40px; }
+    .hero-visual { display: none; }
+    section { padding: 70px 20px; }
+    .benefits-grid { grid-template-columns: 1fr; }
+    .benefit-card:first-child, .benefit-card:last-child { border-radius: 0; }
+    .reviews-grid { grid-template-columns: 1fr; }
+    .order-wrapper { grid-template-columns: 1fr; }
+    .form-row { grid-template-columns: 1fr; }
+    .sticky-bar { padding: 14px 20px; }
+  }
+</style>
 </head>
-
 <body>
 
-<header>PostureFix</header>
+<!-- NAV -->
+<nav>
+  <a href="#" class="nav-logo">PostureFix</a>
+  <a href="#order" class="nav-cta">Order Now — 99 QAR</a>
+</nav>
 
-<div class="hero">
-  <h1>Fix Your Posture Instantly</h1>
-  <p>Look better. Feel better. No more back pain.</p>
-
-  <img src="https://via.placeholder.com/300">
-
-  <div class="price">🔥 99 QAR</div>
-  <div class="badge">ONLY FEW LEFT</div>
-
-  <button class="btn" onclick="window.location.href='https://wa.me/974XXXXXXXX'">
-    Order Now
-  </button>
-
-  <div class="countdown" id="timer"></div>
-</div>
-
-<div class="section">
-  <h2>Before vs After</h2>
-  <img src="https://via.placeholder.com/300">
-</div>
-
-<div class="section">
-  <h2>Why This Works</h2>
-
-  <div class="features">
-    <div class="box">Straightens your back instantly</div>
-    <div class="box">Removes daily back pain</div>
-    <div class="box">Invisible under clothes</div>
+<!-- HERO -->
+<section class="hero" style="padding-top:120px">
+  <div class="hero-content">
+    <div class="hero-badge"><span></span> Limited Stock Available in Qatar</div>
+    <h1>Fix Your<br><em>Posture</em><br>Instantly.</h1>
+    <p class="hero-sub">Look taller, feel stronger, and end back pain — without any exercise. Worn invisibly under your clothes.</p>
+    <div class="hero-price">
+      <span class="currency">QAR</span>
+      <span class="amount">99</span>
+      <span class="tag">Free Delivery</span>
+    </div>
+    <a href="#order" class="btn-primary">Order Now — Pay on Delivery</a>
+    <div class="hero-perks">
+      <span class="hero-perk">Free delivery across Qatar</span>
+      <span class="hero-perk">Pay on delivery</span>
+      <span class="hero-perk">Fits all body types</span>
+    </div>
   </div>
-</div>
+  <div class="hero-visual">
+    <div class="product-frame">
+      <div class="product-placeholder">
+        <svg width="80" height="120" viewBox="0 0 80 120" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M40 10 C40 10 20 30 20 60 C20 90 40 110 40 110 C40 110 60 90 60 60 C60 30 40 10 40 10Z" stroke="white" stroke-width="2" fill="none"/>
+          <line x1="40" y1="10" x2="40" y2="110" stroke="white" stroke-width="1.5" opacity="0.5"/>
+          <path d="M25 40 Q40 35 55 40" stroke="white" stroke-width="1.5" fill="none" opacity="0.5"/>
+          <path d="M22 60 Q40 55 58 60" stroke="white" stroke-width="1.5" fill="none" opacity="0.5"/>
+          <path d="M25 80 Q40 75 55 80" stroke="white" stroke-width="1.5" fill="none" opacity="0.5"/>
+        </svg>
+        <p style="color:#444; font-size:12px;">Add your product<br>photo here</p>
+      </div>
+      <div class="product-badge-float">PostureFix Corrector</div>
+    </div>
+  </div>
+</section>
 
-<div class="section">
-  <h2>Customer Reviews</h2>
+<!-- BENEFITS -->
+<section class="benefits">
+  <div class="container">
+    <div class="section-label">Why it works</div>
+    <div class="section-title">Three reasons<br>customers love it</div>
+    <div class="benefits-grid">
+      <div class="benefit-card">
+        <div class="benefit-icon">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none"><path d="M12 2L12 6M12 18L12 22M6 12L2 12M22 12L18 12" stroke="#1a6b4a" stroke-width="2" stroke-linecap="round"/><circle cx="12" cy="12" r="5" stroke="#1a6b4a" stroke-width="2"/></svg>
+        </div>
+        <h3>Instant correction</h3>
+        <p>Feel your posture improve the moment you put it on. No weeks of waiting — it works from the first wear.</p>
+      </div>
+      <div class="benefit-card">
+        <div class="benefit-icon">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none"><path d="M20 7L12 3L4 7V13C4 17 8 21 12 22C16 21 20 17 20 13V7Z" stroke="#1a6b4a" stroke-width="2" stroke-linejoin="round"/></svg>
+        </div>
+        <h3>Invisible under clothes</h3>
+        <p>Slim, lightweight design fits under any shirt or abaya. Wear it to work, at home, or anywhere you like.</p>
+      </div>
+      <div class="benefit-card">
+        <div class="benefit-icon">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none"><path d="M12 21C12 21 4 16 4 10C4 6.686 6.686 4 10 4C11.122 4 12 4.878 12 6C12 4.878 12.878 4 14 4C17.314 4 20 6.686 20 10C20 16 12 21 12 21Z" stroke="#1a6b4a" stroke-width="2"/></svg>
+        </div>
+        <h3>Eliminates back pain</h3>
+        <p>Relieves pressure from your spine and shoulders. Thousands of users report noticeable pain reduction within days.</p>
+      </div>
+    </div>
+  </div>
+</section>
 
-  <div class="review">"Changed my posture in days!"</div>
-  <div class="review">"Very comfortable and effective."</div>
-  <div class="review">"Best thing I bought this year."</div>
-</div>
+<!-- HOW IT WORKS -->
+<section class="steps">
+  <div class="container">
+    <div class="section-label">How it works</div>
+    <div class="section-title">Simple as 1, 2, 3</div>
+    <div class="steps-list">
+      <div class="step">
+        <div class="step-num">01</div>
+        <div>
+          <h3>Order online</h3>
+          <p>Fill in the form below with your name, phone, and area. No credit card needed — you pay only when it arrives at your door.</p>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-num">02</div>
+        <div>
+          <h3>Receive it at home</h3>
+          <p>Fast delivery anywhere in Qatar. We'll call you to confirm your order and arrange delivery at your preferred time.</p>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-num">03</div>
+        <div>
+          <h3>Wear it and feel the difference</h3>
+          <p>Put it on and feel your posture straighten immediately. Wear it 1–2 hours a day and build lasting improvement over time.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
 
-<div class="section">
-  <h2>Still Thinking?</h2>
-  <p>You risk nothing. Try it today.</p>
+<!-- REVIEWS -->
+<section class="reviews">
+  <div class="container">
+    <div class="section-label">Customer reviews</div>
+    <div class="section-title" style="color:white">Real people,<br>real results</div>
+    <div class="reviews-grid">
+      <div class="review-card">
+        <div class="stars">★★★★★</div>
+        <p class="review-text">"I sit at a desk all day and my back was always hurting. After one week with PostureFix, the pain is almost completely gone. Incredible."</p>
+        <div class="reviewer">
+          <div class="reviewer-avatar">FM</div>
+          <div>
+            <div class="reviewer-name">Fatima M.</div>
+            <div class="reviewer-loc">Doha, Qatar</div>
+          </div>
+        </div>
+      </div>
+      <div class="review-card">
+        <div class="stars">★★★★★</div>
+        <p class="review-text">"Very comfortable and you can't see it at all under a shirt. My wife ordered one after she saw the change in my posture in just a few days."</p>
+        <div class="reviewer">
+          <div class="reviewer-avatar">KA</div>
+          <div>
+            <div class="reviewer-name">Khalid A.</div>
+            <div class="reviewer-loc">Al Wakra, Qatar</div>
+          </div>
+        </div>
+      </div>
+      <div class="review-card">
+        <div class="stars">★★★★★</div>
+        <p class="review-text">"Best thing I bought this year, wallah. Fast delivery, pay on delivery, and it actually works. I recommended it to everyone in my family."</p>
+        <div class="reviewer">
+          <div class="reviewer-avatar">SA</div>
+          <div>
+            <div class="reviewer-name">Sara A.</div>
+            <div class="reviewer-loc">Al Rayyan, Qatar</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
 
-  <button class="btn" onclick="window.location.href='https://wa.me/974XXXXXXXX'">
-    Get Yours Now
-  </button>
-</div>
+<!-- ORDER FORM -->
+<section class="order-section" id="order">
+  <div class="container">
+    <div class="order-wrapper">
+      <div class="order-info">
+        <div class="section-label">Place your order</div>
+        <h2>Order now,<br>pay when<br>it arrives.</h2>
+        <p>No online payment. No risk. Just fill in your details and we'll deliver PostureFix straight to your door anywhere in Qatar.</p>
+        <div class="order-guarantees">
+          <div class="guarantee"><div class="guarantee-icon">🚚</div>Free delivery across Qatar</div>
+          <div class="guarantee"><div class="guarantee-icon">💵</div>Pay on delivery — cash only</div>
+          <div class="guarantee"><div class="guarantee-icon">📦</div>Discreet packaging</div>
+          <div class="guarantee"><div class="guarantee-icon">📞</div>We call to confirm your order</div>
+        </div>
+      </div>
 
-<div class="popup" id="popup">
-  Someone in Qatar just ordered 🔥
-</div>
+      <div class="order-form-box">
+        <div id="form-view">
+          <div class="form-title">Order PostureFix</div>
+          <div class="form-sub">Only <strong>99 QAR</strong> — pay when delivered</div>
+          <form id="orderForm">
+            <div class="form-row">
+              <div class="form-group">
+                <label>First name *</label>
+                <input type="text" id="fname" placeholder="Mohammed" required>
+              </div>
+              <div class="form-group">
+                <label>Last name *</label>
+                <input type="text" id="lname" placeholder="Al-Rashid" required>
+              </div>
+            </div>
+            <div class="form-group">
+              <label>Phone number *</label>
+              <input type="tel" id="phone" placeholder="+974 5xxx xxxx" required>
+            </div>
+            <div class="form-group">
+              <label>Area / Neighborhood *</label>
+              <select id="area" required>
+                <option value="">Select your area</option>
+                <option>Doha</option>
+                <option>Al Rayyan</option>
+                <option>Al Wakra</option>
+                <option>Al Daayen</option>
+                <option>Umm Salal</option>
+                <option>Al Khor</option>
+                <option>Al Shamal</option>
+                <option>Other</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label>Quantity</label>
+              <select id="qty">
+                <option value="1">1 piece — 99 QAR</option>
+                <option value="2">2 pieces — 190 QAR (save 8 QAR)</option>
+                <option value="3">3 pieces — 270 QAR (save 27 QAR)</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label>Additional notes (optional)</label>
+              <textarea id="notes" placeholder="Preferred delivery time, address details..."></textarea>
+            </div>
+            <button type="submit" class="submit-btn">Confirm My Order →</button>
+            <p class="form-note">By ordering, you agree to be contacted by our team to confirm delivery details.</p>
+          </form>
+        </div>
 
+        <div class="success-msg" id="success-view">
+          <div class="check">✓</div>
+          <h3>Order received!</h3>
+          <p>Thank you! Our team will call you within 24 hours to confirm your order and arrange delivery.</p>
+          <br>
+          <p style="font-size:13px;color:#aaa;">Questions? WhatsApp us anytime.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
 <footer>
-  Free Delivery | Pay on Delivery Available
+  <div class="footer-logo">PostureFix</div>
+  <p>© 2025 PostureFix Qatar · <a href="mailto:posturefix.qa@gmail.com">posturefix.qa@gmail.com</a></p>
+  <p style="margin-top:8px; font-size:12px;">Free delivery · Pay on delivery · All areas in Qatar</p>
 </footer>
 
+<!-- STICKY BAR -->
+<div class="sticky-bar" id="stickyBar">
+  <p><strong>PostureFix</strong> — 99 QAR · Free Delivery · Pay on Delivery</p>
+  <a href="#order" class="nav-cta">Order Now</a>
+</div>
+
 <script>
-  let time = 600;
-  setInterval(() => {
-    let min = Math.floor(time / 60);
-    let sec = time % 60;
-    document.getElementById("timer").innerHTML =
-      "⏳ Offer ends in " + min + ":" + (sec < 10 ? "0" + sec : sec);
-    time--;
-  }, 1000);
+  // Sticky bar on scroll
+  const bar = document.getElementById('stickyBar');
+  window.addEventListener('scroll', () => {
+    if (window.scrollY > 500) bar.classList.add('visible');
+    else bar.classList.remove('visible');
+  });
 
-  setInterval(() => {
-    let popup = document.getElementById("popup");
-    popup.style.display = "block";
-    setTimeout(() => popup.style.display = "none", 3000);
-  }, 7000);
+  // Form submission
+  document.getElementById('orderForm').addEventListener('submit', function(e) {
+    e.preventDefault();
+    const fname = document.getElementById('fname').value;
+    const lname = document.getElementById('lname').value;
+    const phone = document.getElementById('phone').value;
+    const area = document.getElementById('area').value;
+    const qty = document.getElementById('qty').value;
+    const notes = document.getElementById('notes').value;
+
+    // Build WhatsApp message
+    const msg = `New PostureFix Order!\n\nName: ${fname} ${lname}\nPhone: ${phone}\nArea: ${area}\nQuantity: ${qty}\nNotes: ${notes || 'None'}`;
+    
+    // Show success
+    document.getElementById('form-view').style.display = 'none';
+    document.getElementById('success-view').style.display = 'block';
+
+    // Open WhatsApp after short delay (replace YOUR_NUMBER with actual number)
+    // setTimeout(() => {
+    //   window.open('https://wa.me/YOUR_NUMBER?text=' + encodeURIComponent(msg), '_blank');
+    // }, 1000);
+  });
 </script>
-
 </body>
 </html>
