@@ -1,163 +1,43 @@
-export default function PostureCorrectorStorefront() {
-  const features = [
-    {
-      title: 'Helps improve posture',
-      text: 'Designed to gently support your back and shoulders during study, work, or gaming.'
-    },
-    {
-      title: 'Comfortable daily wear',
-      text: 'Lightweight adjustable straps make it easier to fit different body sizes.'
-    },
-    {
-      title: 'Clean minimal design',
-      text: 'Simple black finish gives it a premium look that feels modern and practical.'
+<!DOCTYPE html>
+<html>
+<head>
+  <title>PostureFix</title>
+  <style>
+    body {
+      font-family: Arial;
+      background: #0f0f0f;
+      color: white;
+      text-align: center;
+      padding: 40px;
     }
-  ];
-
-  const reviews = [
-    {
-      name: 'Adam',
-      text: 'I use it while studying and it reminds me to stop slouching.'
-    },
-    {
-      name: 'Maya',
-      text: 'It looks simple, feels light, and made my sitting posture much better.'
-    },
-    {
-      name: 'Yousef',
-      text: 'Good for desk work. The product page also made me trust the brand.'
+    img {
+      width: 250px;
+      border-radius: 20px;
     }
-  ];
+    button {
+      padding: 12px 20px;
+      font-size: 16px;
+      background: white;
+      color: black;
+      border: none;
+      border-radius: 10px;
+      cursor: pointer;
+    }
+  </style>
+</head>
 
-  return (
-    <div className="min-h-screen bg-neutral-950 text-white">
-      <section className="mx-auto max-w-7xl px-6 py-16 lg:px-10">
-        <div className="grid items-center gap-12 lg:grid-cols-2">
-          <div>
-            <p className="mb-4 inline-block rounded-full border border-white/15 bg-white/5 px-4 py-1 text-sm text-white/80">
-              New arrival • Free delivery over 199 QAR
-            </p>
-            <h1 className="max-w-xl text-4xl font-bold leading-tight md:text-6xl">
-              Fix your posture without changing your whole routine.
-            </h1>
-            <p className="mt-6 max-w-lg text-lg text-white/70">
-              A clean, comfortable posture corrector built for students, office workers, and gamers who want better support during long sitting hours.
-            </p>
-            <div className="mt-8 flex flex-wrap items-center gap-4">
-              <button className="rounded-2xl bg-white px-6 py-3 text-sm font-semibold text-black shadow-lg transition hover:scale-[1.02]">
-                Buy now — 99 QAR
-              </button>
-              <button className="rounded-2xl border border-white/20 px-6 py-3 text-sm font-semibold text-white transition hover:bg-white/10">
-                View details
-              </button>
-            </div>
-            <div className="mt-8 flex flex-wrap gap-6 text-sm text-white/60">
-              <span>✔ Adjustable fit</span>
-              <span>✔ Everyday comfort</span>
-              <span>✔ Minimal style</span>
-            </div>
-          </div>
+<body>
 
-          <div>
-            <div className="rounded-[2rem] border border-white/10 bg-gradient-to-br from-neutral-900 to-neutral-800 p-6 shadow-2xl">
-              <div className="aspect-[4/5] rounded-[1.5rem] border border-white/10 bg-neutral-900 p-6">
-                <div className="flex h-full items-center justify-center rounded-[1.25rem] border border-dashed border-white/15 bg-white/5 text-center">
-                  <div>
-                    <div className="mx-auto mb-4 h-28 w-28 rounded-full bg-white/10" />
-                    <p className="text-lg font-medium">Product image area</p>
-                    <p className="mt-2 text-sm text-white/50">Add your product photo or mockup here</p>
-                  </div>
-                </div>
-              </div>
-              <div className="mt-4 grid grid-cols-3 gap-3">
-                <div className="h-20 rounded-2xl bg-white/5" />
-                <div className="h-20 rounded-2xl bg-white/5" />
-                <div className="h-20 rounded-2xl bg-white/5" />
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
+<h1>Fix Your Posture Today</h1>
+<p>Comfortable posture corrector for daily use</p>
 
-      <section className="border-t border-white/10 bg-neutral-900/60">
-        <div className="mx-auto grid max-w-7xl gap-6 px-6 py-14 md:grid-cols-3 lg:px-10">
-          {features.map((feature) => (
-            <div key={feature.title} className="rounded-[1.75rem] border border-white/10 bg-white/5 p-6 shadow-xl">
-              <h3 className="text-xl font-semibold">{feature.title}</h3>
-              <p className="mt-3 text-white/65">{feature.text}</p>
-            </div>
-          ))}
-        </div>
-      </section>
+<img src="https://via.placeholder.com/300">
 
-      <section className="mx-auto max-w-7xl px-6 py-16 lg:px-10">
-        <div className="grid gap-8 lg:grid-cols-2">
-          <div className="rounded-[2rem] border border-white/10 bg-white/5 p-8">
-            <p className="text-sm uppercase tracking-[0.2em] text-white/50">Why people want it</p>
-            <h2 className="mt-3 text-3xl font-bold">Made for long hours at the desk.</h2>
-            <p className="mt-4 text-white/70">
-              Whether you are studying, working, editing, or gaming, this support strap helps remind your body to stay in a healthier position.
-            </p>
-            <ul className="mt-6 space-y-3 text-white/75">
-              <li>• Useful for study sessions and office work</li>
-              <li>• Easy to wear under or over clothing</li>
-              <li>• Simple enough for everyday use</li>
-            </ul>
-          </div>
+<h2>Only 99 QAR</h2>
 
-          <div className="rounded-[2rem] border border-white/10 bg-gradient-to-br from-neutral-900 to-black p-8">
-            <p className="text-sm uppercase tracking-[0.2em] text-white/50">Limited offer</p>
-            <h2 className="mt-3 text-3xl font-bold">Today only: 99 QAR</h2>
-            <p className="mt-4 text-white/70">
-              Order now and get a simple premium support solution for better posture at home, in class, or at work.
-            </p>
-            <div className="mt-6 rounded-2xl border border-white/10 bg-white/5 p-5">
-              <div className="flex items-center justify-between text-sm text-white/70">
-                <span>Regular price</span>
-                <span className="line-through">149 QAR</span>
-              </div>
-              <div className="mt-3 flex items-center justify-between text-lg font-semibold">
-                <span>Offer price</span>
-                <span>99 QAR</span>
-              </div>
-              <button className="mt-5 w-full rounded-2xl bg-white px-5 py-3 font-semibold text-black transition hover:scale-[1.01]">
-                Get yours now
-              </button>
-            </div>
-          </div>
-        </div>
-      </section>
+<button onclick="window.location.href='https://wa.me/974XXXXXXXX'">
+Order on WhatsApp
+</button>
 
-      <section className="border-t border-white/10 bg-neutral-900/60">
-        <div className="mx-auto max-w-7xl px-6 py-16 lg:px-10">
-          <div className="mb-8 flex items-end justify-between gap-4">
-            <div>
-              <p className="text-sm uppercase tracking-[0.2em] text-white/50">Social proof</p>
-              <h2 className="mt-2 text-3xl font-bold">What customers say</h2>
-            </div>
-            <p className="text-sm text-white/50">4.8/5 average rating</p>
-          </div>
-          <div className="grid gap-6 md:grid-cols-3">
-            {reviews.map((review) => (
-              <div key={review.name} className="rounded-[1.75rem] border border-white/10 bg-white/5 p-6">
-                <p className="text-white/80">“{review.text}”</p>
-                <p className="mt-5 font-semibold text-white">{review.name}</p>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      <footer className="mx-auto max-w-7xl px-6 py-10 text-sm text-white/45 lg:px-10">
-        <div className="flex flex-col gap-3 md:flex-row md:items-center md:justify-between">
-          <p>Posture+ © 2026</p>
-          <div className="flex gap-4">
-            <span>Shipping</span>
-            <span>Returns</span>
-            <span>Contact</span>
-          </div>
-        </div>
-      </footer>
-    </div>
-  );
-}
+</body>
+</html>
