@@ -2,42 +2,139 @@
 <html>
 <head>
   <title>PostureFix</title>
+
   <style>
     body {
-      font-family: Arial;
+      margin: 0;
+      font-family: Arial, sans-serif;
       background: #0f0f0f;
       color: white;
+    }
+
+    .container {
+      padding: 40px 20px;
+      max-width: 1000px;
+      margin: auto;
       text-align: center;
-      padding: 40px;
     }
+
+    h1 {
+      font-size: 40px;
+      margin-bottom: 10px;
+    }
+
+    p {
+      color: #ccc;
+      font-size: 18px;
+    }
+
     img {
-      width: 250px;
+      width: 280px;
       border-radius: 20px;
+      margin: 20px 0;
     }
-    button {
-      padding: 12px 20px;
-      font-size: 16px;
+
+    .price {
+      font-size: 28px;
+      margin: 15px 0;
+    }
+
+    .btn {
       background: white;
       color: black;
+      padding: 14px 25px;
+      border-radius: 12px;
+      font-weight: bold;
       border: none;
-      border-radius: 10px;
       cursor: pointer;
+      transition: 0.2s;
     }
+
+    .btn:hover {
+      transform: scale(1.05);
+    }
+
+    .features {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      margin-top: 40px;
+      gap: 20px;
+    }
+
+    .feature-box {
+      background: #1a1a1a;
+      padding: 20px;
+      border-radius: 15px;
+      width: 250px;
+    }
+
+    .reviews {
+      margin-top: 50px;
+    }
+
+    .review-box {
+      background: #1a1a1a;
+      padding: 20px;
+      margin: 10px;
+      border-radius: 15px;
+    }
+
+    footer {
+      margin-top: 50px;
+      padding: 20px;
+      color: #777;
+      font-size: 14px;
+    }
+
   </style>
 </head>
 
 <body>
 
-<h1>Fix Your Posture Today</h1>
-<p>Comfortable posture corrector for daily use</p>
+<div class="container">
 
-<img src="https://via.placeholder.com/300">
+  <h1>Fix Your Posture Without Changing Your Routine</h1>
+  <p>Perfect for students, office workers, and gamers.</p>
 
-<h2>Only 99 QAR</h2>
+  <img src="https://via.placeholder.com/300">
 
-<button onclick="window.location.href='https://wa.me/974XXXXXXXX'">
-Order on WhatsApp
-</button>
+  <div class="price">Only 99 QAR</div>
+
+  <button class="btn" onclick="window.location.href='https://wa.me/974XXXXXXXX'">
+    Order on WhatsApp
+  </button>
+
+  <div class="features">
+    <div class="feature-box">
+      <h3>Improves Posture</h3>
+      <p>Helps keep your back straight during long hours.</p>
+    </div>
+
+    <div class="feature-box">
+      <h3>Comfortable</h3>
+      <p>Lightweight and adjustable for daily use.</p>
+    </div>
+
+    <div class="feature-box">
+      <h3>Minimal Design</h3>
+      <p>Clean look that fits any lifestyle.</p>
+    </div>
+  </div>
+
+  <div class="reviews">
+    <h2>What Customers Say</h2>
+
+    <div class="review-box">"Actually helped my back pain!" – Ahmed</div>
+    <div class="review-box">"Simple but effective." – Sara</div>
+    <div class="review-box">"Good for studying and gaming." – Ali</div>
+  </div>
+
+</div>
+
+<footer>
+  PostureFix © 2026
+</footer>
 
 </body>
 </html>
