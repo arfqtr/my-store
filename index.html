@@ -6,25 +6,29 @@
   <style>
     body {
       margin: 0;
-      font-family: Arial, sans-serif;
-      background: #0f0f0f;
+      font-family: 'Segoe UI', sans-serif;
+      background: #0d0d0d;
       color: white;
     }
 
-    .container {
-      padding: 40px 20px;
-      max-width: 1000px;
-      margin: auto;
+    header {
       text-align: center;
+      padding: 15px;
+      font-weight: bold;
+      border-bottom: 1px solid #222;
     }
 
-    h1 {
-      font-size: 40px;
-      margin-bottom: 10px;
+    .hero {
+      text-align: center;
+      padding: 50px 20px;
     }
 
-    p {
-      color: #ccc;
+    .hero h1 {
+      font-size: 42px;
+    }
+
+    .hero p {
+      color: #bbb;
       font-size: 18px;
     }
 
@@ -35,56 +39,74 @@
     }
 
     .price {
-      font-size: 28px;
-      margin: 15px 0;
+      font-size: 32px;
+      color: #00ffae;
     }
 
     .btn {
-      background: white;
+      background: #00ffae;
       color: black;
-      padding: 14px 25px;
+      padding: 15px 30px;
       border-radius: 12px;
       font-weight: bold;
       border: none;
       cursor: pointer;
-      transition: 0.2s;
+      margin-top: 10px;
     }
 
-    .btn:hover {
-      transform: scale(1.05);
+    .section {
+      padding: 50px 20px;
+      text-align: center;
     }
 
     .features {
       display: flex;
       flex-wrap: wrap;
       justify-content: center;
-      margin-top: 40px;
       gap: 20px;
     }
 
-    .feature-box {
+    .box {
       background: #1a1a1a;
       padding: 20px;
       border-radius: 15px;
-      width: 250px;
+      width: 260px;
     }
 
-    .reviews {
-      margin-top: 50px;
-    }
-
-    .review-box {
+    .review {
       background: #1a1a1a;
-      padding: 20px;
+      padding: 15px;
       margin: 10px;
-      border-radius: 15px;
+      border-radius: 10px;
+    }
+
+    .badge {
+      background: red;
+      padding: 5px 10px;
+      border-radius: 10px;
+      display: inline-block;
+      margin: 10px 0;
+    }
+
+    .countdown {
+      color: #ff4d4d;
+      margin-top: 10px;
+    }
+
+    .popup {
+      position: fixed;
+      bottom: 20px;
+      left: 20px;
+      background: #1a1a1a;
+      padding: 10px;
+      border-radius: 10px;
+      display: none;
     }
 
     footer {
-      margin-top: 50px;
+      text-align: center;
       padding: 20px;
       color: #777;
-      font-size: 14px;
     }
 
   </style>
@@ -92,49 +114,80 @@
 
 <body>
 
-<div class="container">
+<header>PostureFix</header>
 
-  <h1>Fix Your Posture Without Changing Your Routine</h1>
-  <p>Perfect for students, office workers, and gamers.</p>
+<div class="hero">
+  <h1>Fix Your Posture Instantly</h1>
+  <p>Look better. Feel better. No more back pain.</p>
 
   <img src="https://via.placeholder.com/300">
 
-  <div class="price">Only 99 QAR</div>
+  <div class="price">🔥 99 QAR</div>
+  <div class="badge">ONLY FEW LEFT</div>
 
   <button class="btn" onclick="window.location.href='https://wa.me/974XXXXXXXX'">
-    Order on WhatsApp
+    Order Now
   </button>
 
+  <div class="countdown" id="timer"></div>
+</div>
+
+<div class="section">
+  <h2>Before vs After</h2>
+  <img src="https://via.placeholder.com/300">
+</div>
+
+<div class="section">
+  <h2>Why This Works</h2>
+
   <div class="features">
-    <div class="feature-box">
-      <h3>Improves Posture</h3>
-      <p>Helps keep your back straight during long hours.</p>
-    </div>
-
-    <div class="feature-box">
-      <h3>Comfortable</h3>
-      <p>Lightweight and adjustable for daily use.</p>
-    </div>
-
-    <div class="feature-box">
-      <h3>Minimal Design</h3>
-      <p>Clean look that fits any lifestyle.</p>
-    </div>
+    <div class="box">Straightens your back instantly</div>
+    <div class="box">Removes daily back pain</div>
+    <div class="box">Invisible under clothes</div>
   </div>
+</div>
 
-  <div class="reviews">
-    <h2>What Customers Say</h2>
+<div class="section">
+  <h2>Customer Reviews</h2>
 
-    <div class="review-box">"Actually helped my back pain!" – Ahmed</div>
-    <div class="review-box">"Simple but effective." – Sara</div>
-    <div class="review-box">"Good for studying and gaming." – Ali</div>
-  </div>
+  <div class="review">"Changed my posture in days!"</div>
+  <div class="review">"Very comfortable and effective."</div>
+  <div class="review">"Best thing I bought this year."</div>
+</div>
 
+<div class="section">
+  <h2>Still Thinking?</h2>
+  <p>You risk nothing. Try it today.</p>
+
+  <button class="btn" onclick="window.location.href='https://wa.me/974XXXXXXXX'">
+    Get Yours Now
+  </button>
+</div>
+
+<div class="popup" id="popup">
+  Someone in Qatar just ordered 🔥
 </div>
 
 <footer>
-  PostureFix © 2026
+  Free Delivery | Pay on Delivery Available
 </footer>
+
+<script>
+  let time = 600;
+  setInterval(() => {
+    let min = Math.floor(time / 60);
+    let sec = time % 60;
+    document.getElementById("timer").innerHTML =
+      "⏳ Offer ends in " + min + ":" + (sec < 10 ? "0" + sec : sec);
+    time--;
+  }, 1000);
+
+  setInterval(() => {
+    let popup = document.getElementById("popup");
+    popup.style.display = "block";
+    setTimeout(() => popup.style.display = "none", 3000);
+  }, 7000);
+</script>
 
 </body>
 </html>
